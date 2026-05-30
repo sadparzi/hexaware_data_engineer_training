@@ -163,3 +163,240 @@ INSERT INTO employees VALUES
 (106, 'Neha Singh', 60, 50000, 'Delhi', NULL),
 (107, 'Farhan Ali', 40, NULL, 'Hyderabad', 205),
 (108, 'Meera Nair', 10, 90000, 'Pune', 201);
+
+-- exercise 23
+SELECT
+    e.employee_name,
+    e.salary,
+    d.department_name,
+    d.location
+FROM employees e
+INNER JOIN departments d
+ON e.department_id = d.department_id;
+
+-- exercise 24
+SELECT
+    e.employee_name,
+    e.salary,
+    d.department_name,
+    d.location
+FROM employees e
+LEFT JOIN departments d
+ON e.department_id = d.department_id;
+
+-- exercise 25
+SELECT e.employee_name
+FROM employees e
+LEFT JOIN departments d
+ON e.department_id = d.department_id
+WHERE d.department_id IS NULL;
+
+-- exercise 26
+SELECT
+    e.employee_name,
+    d.department_name,
+    d.location
+FROM employees e
+RIGHT JOIN departments d
+ON e.department_id = d.department_id;
+
+-- exercise 27
+SELECT d.department_name
+FROM employees e
+RIGHT JOIN departments d
+ON e.department_id = d.department_id
+WHERE e.employee_id IS NULL;
+
+-- exercise 28
+SELECT *
+FROM employees
+WHERE salary IS NULL;
+
+-- exercise 29
+SELECT *
+FROM employees
+WHERE city IS NULL;
+
+-- exercise 30
+SELECT *
+FROM departments
+WHERE location IS NULL;
+
+-- exercise 31
+SELECT
+    d.department_name,
+    COUNT(e.employee_id) AS EmployeeCount
+FROM departments d
+LEFT JOIN employees e
+ON d.department_id = e.department_id
+GROUP BY d.department_name;
+
+-- exercise 32
+SELECT
+    d.department_name,
+    AVG(e.salary) AS AverageSalary
+FROM departments d
+LEFT JOIN employees e
+ON d.department_id = e.department_id
+GROUP BY d.department_name;
+
+-- exercise 33
+SELECT
+    d.department_name,
+    COUNT(e.employee_id) AS EmployeeCount
+FROM departments d
+LEFT JOIN employees e
+ON d.department_id = e.department_id
+GROUP BY d.department_name
+HAVING COUNT(e.employee_id) > 2;
+
+-- exercise 34
+SELECT
+    d.department_name,
+    MAX(e.salary) AS HighestSalary
+FROM departments d
+LEFT JOIN employees e
+ON d.department_id = e.department_id
+GROUP BY d.department_name;
+
+CREATE TABLE customers_new
+(
+customer_id INT PRIMARY KEY,
+customer_name VARCHAR(50),
+city VARCHAR(50),
+membership_type VARCHAR(30)
+);
+
+CREATE TABLE payments
+(
+payment_id INT PRIMARY KEY,
+customer_id INT,
+amount DECIMAL(10,2),
+payment_mode VARCHAR(30),
+payment_status VARCHAR(30)
+);
+
+INSERT INTO customers_new VALUES
+(1, 'Ramesh Gupta', 'Hyderabad', 'Gold'),
+(2, 'Sana Khan', 'Bangalore', 'Silver'),
+(3, 'John Mathew', 'Mumbai', 'Gold'),
+(4, 'Ayesha Begum', 'Chennai', 'Bronze'),
+(5, 'Vikram Rao', 'Delhi', 'Silver'),
+(6, 'Divya Sharma', 'Pune', NULL);
+
+INSERT INTO payments VALUES
+(1001, 1, 15000, 'UPI', 'Success'),
+(1002, 1, 8000, 'Card', 'Success'),
+(1003, 2, 5000, 'Cash', 'Pending'),
+(1004, 3, 22000, 'UPI', 'Success'),
+(1005, 7, 12000, 'Card', 'Failed'),
+(1006, NULL, 3000, 'Cash', 'Pending'),
+(1007, 4, NULL, 'UPI', 'Success'),
+(1008, 5, 7000, NULL, 'Success');
+
+
+-- exercise 35
+SELECT *
+FROM customers_new
+WHERE customer_id IN
+(
+    SELECT customer_id
+    FROM payments
+    WHERE customer_id IS NOT NULL
+);
+
+-- exercise 36
+SELECT *
+FROM customers_new c
+WHERE NOT EXISTS
+(
+    SELECT *
+    FROM payments p
+    WHERE p.customer_id = c.customer_id
+);
+
+-- exercise 37
+SELECT *
+FROM payments
+WHERE amount >
+(
+    SELECT AVG(amount)
+    FROM payments
+);
+
+-- exercise 38
+SELECT
+    c.customer_id,
+    c.customer_name,
+    p.amount
+FROM customers_new c
+INNER JOIN payments p
+ON c.customer_id = p.customer_id
+WHERE p.amount =
+(
+    SELECT MAX(amount)
+    FROM payments
+);
+
+-- exercise 39
+SELECT *
+FROM customers_new
+WHERE membership_type = 'Gold'
+AND customer_id IN
+(
+    SELECT customer_id
+    FROM payments
+    WHERE customer_id IS NOT NULL
+);
+
+-- exercise 40
+SELECT *
+FROM customers_new
+WHERE customer_id IN
+(
+    SELECT customer_id
+    FROM payments
+    GROUP BY customer_id
+    HAVING SUM(amount) > 10000
+);
+
+-- exercise 41
+SELECT *
+FROM payments
+WHERE customer_id IS NULL
+OR customer_id NOT IN
+(
+    SELECT customer_id
+    FROM customers_new
+);
+
+-- exercise 42
+SELECT *
+FROM customers_new c
+WHERE EXISTS
+(
+    SELECT *
+    FROM payments p
+    WHERE p.customer_id = c.customer_id
+);
+
+-- exercise 43
+SELECT *
+FROM customers_new c
+WHERE NOT EXISTS
+(
+    SELECT *
+    FROM payments p
+    WHERE p.customer_id = c.customer_id
+);
+
+-- exercise 44
+SELECT *
+FROM payments
+WHERE amount >
+ALL
+(
+    SELECT amount
+    FROM payments
+    WHERE customer_id = 2
+);
