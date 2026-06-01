@@ -589,3 +589,25 @@ LEFT JOIN doctors d
 ON a.doctor_id = d.doctor_id
 WHERE p.patient_id IS NULL
 OR d.doctor_id IS NULL;
+
+
+-- report 1 
+SELECT
+    p.patient_name AS PatientName,
+    p.city AS City,
+    COUNT(DISTINCT a.appointment_id) AS TotalAppointments,
+    COALESCE(SUM(DISTINCT b.total_amount), 0) AS TotalBillAmount,
+    COALESCE(SUM(pay.paid_amount), 0) AS TotalPaidAmount,
+    COALESCE(SUM(DISTINCT b.total_amount), 0) -
+    COALESCE(SUM(pay.paid_amount), 0) AS PendingAmount
+FROM patients p
+LEFT JOIN appointments a
+ON p.patient_id = a.patient_id
+LEFT JOIN bills b
+ON p.patient_id = b.patient_id
+LEFT JOIN payments pay
+ON b.bill_id = pay.bill_id
+GROUP BY
+    p.patient_id,
+    p.patient_name,
+    p.city;
