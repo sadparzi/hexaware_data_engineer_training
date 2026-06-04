@@ -27,3 +27,23 @@ print(cities)
 cities.remove("Mumbai")
 print(cities)
 
+cities.pop(1)
+print(cities)
+
+del cities[0]
+print(cities)
+
+cities.clear()
+print(cities)
+
+print(len(cities))
+
+# Check Membership
+print("Mumbai" in cities)
+print("Pune" in cities)
+
+print(cities.index("Mumbai"))
+
+cities.sort()
+print(cities)
+
