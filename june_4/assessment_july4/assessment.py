@@ -1,7 +1,5 @@
 salaries = [45000, 55000, 65000, 75000, 85000]
 
-salaries = [45000, 55000, 65000, 75000, 85000]
-
 # Exercise 1
 for salary in salaries:
     print(salary)
