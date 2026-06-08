@@ -1,0 +1,51 @@
+1. Master Node
+
+The Master Node coordinates the entire Spark application.
+
+It contains:
+
+Driver Program
+Runs the main application.
+Contains the user-written Spark code.
+Spark Context
+Entry point to Spark.
+Creates RDDs/DataFrames.
+Communicates with the Cluster Manager.
+2. Cluster Manager
+
+Acts as a resource manager.
+
+Responsibilities:
+
+Allocates CPU and memory resources.
+Assigns work to worker nodes.
+Monitors execution.
+
+Examples:
+
+Standalone Cluster Manager
+Hadoop YARN
+Apache Mesos
+Kubernetes
+3. Worker Nodes
+
+Worker nodes perform the actual computation.
+
+Each worker node contains:
+
+Tasks
+Small units of work executed in parallel.
+Generated from Spark jobs.
+Cache
+Stores intermediate data in memory.
+Enables faster processing by avoiding repeated disk reads.
+
+
+Main use of pyspark is 
+->ETL
+->Data Processing
+->Machine Learning
+->Real-Time Analytics
+
+
+https://www.techmixing.com/wp-content/uploads/2025/09/pyspark-architecture.png
