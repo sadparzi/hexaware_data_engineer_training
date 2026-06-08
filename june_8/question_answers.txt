@@ -1,0 +1,159 @@
+1. What is Big Data and What is PySpark?
+Big Data
+
+Big Data refers to extremely large volumes of data that cannot be processed efficiently using traditional databases or software tools. This data is generated from sources such as social media, websites, mobile applications, sensors, IoT devices, and online transactions.
+
+Big Data is commonly characterized by the 5 Vs:
+
+i.  Volume – Huge amount of data
+ii. Velocity – Data generated at high speed
+iii.Variety – Different types of data (text, images, videos, etc.)
+iv. Veracity – Accuracy and reliability of data
+v.  Value – Useful insights obtained from data
+
+PySpark
+
+PySpark is the Python API for Apache Spark. It allows developers to use Python for processing and analyzing large datasets in a distributed computing environment.
+
+PySpark combines the simplicity of Python with the power of Spark's distributed processing engine, making it suitable for data analysis, machine learning, ETL operations, and real-time data processing.
+
+Applications of PySpark:
+
+->Data Processing
+->ETL (Extract, Transform, Load)
+->Machine Learning
+->Real-Time Analytics
+->Big Data Analysis
+
+2. Spark's Basic Architecture
+
+Apache Spark follows a master-worker architecture.
+
+Components:
+Driver Program
+
+The Driver Program contains the main application logic and coordinates the execution of Spark jobs.
+
+Spark Session
+
+Spark Session is the entry point to Spark applications. It allows users to create DataFrames, execute SQL queries, and interact with Spark functionalities.
+
+Cluster Manager
+
+The Cluster Manager is responsible for allocating resources and managing worker nodes.
+
+Worker Nodes
+
+Worker nodes execute tasks assigned by the Driver Program and process data in parallel.
+
+Working Process
+i   User submits a Spark application.
+ii  Driver Program starts execution.
+iii Spark Session communicates with the Cluster Manager.
+iv  Cluster Manager allocates resources.
+v   Tasks are distributed among Worker Nodes.
+vi  Worker Nodes process data and return results.
+vii Driver Program collects and displays the output.
+
+This architecture enables Spark to process large datasets quickly through parallel execution.
+
+
+3. Cluster Manager, Spark Session, Spark Context, Driver Node, Worker Node
+Cluster Manager
+
+The Cluster Manager manages the resources available in the cluster and assigns them to Spark applications.
+
+Examples:
+
+Standalone Cluster Manager
+Hadoop YARN
+Kubernetes
+Apache Mesos
+Spark Session
+
+Spark Session is the main entry point for PySpark applications.
+
+Example:(in python)
+from pyspark.sql import SparkSession
+spark = SparkSession.builder.appName("Demo").getOrCreate()
+
+It allows creation of DataFrames and execution of Spark SQL operations.
+
+Spark Context
+
+Spark Context is responsible for establishing communication with the cluster and coordinating distributed execution.
+
+It acts as the bridge between the Spark application and the cluster resources.
+
+Example:
+sc = spark.sparkContext (again in python)
+
+Driver Node
+
+The Driver Node is the machine where the Spark application starts running.
+
+Responsibilities:
+
+->Creates Spark Session
+->Creates Spark Context
+->Divides jobs into tasks
+->Schedules task execution
+->Collects final results
+
+Worker Node
+
+Worker Nodes perform the actual computation.
+
+Responsibilities:
+
+->Execute tasks assigned by the Driver
+->Store cached data
+->Return results to the Driver
+
+A Spark cluster may contain multiple Worker Nodes to process data simultaneously.
+
+
+4. What is Client Mode and Cluster Mode?
+Spark applications can run in two deployment modes: Client Mode and Cluster Mode.
+
+Client Mode
+In Client Mode, the Driver Program runs on the machine from which the application is submitted.
+User Machine
+     |
+ Driver Program
+     |
+Cluster Manager
+     |
+Worker Nodes
+
+
+Advantages:
+->Easy debugging
+->Suitable for development and testing
+->Direct access to application logs
+
+Disadvantages:
+->If the client machine fails, the application stops.
+->Not ideal for long-running production jobs.
+
+Cluster Mode
+In Cluster Mode, the Driver Program runs inside the cluster on one of the worker machines.
+User Machine
+     |
+Cluster Manager
+     |
+ Driver Program
+     |
+Worker Nodes
+
+Advantages:
+->Better fault tolerance
+->Suitable for production environments
+->Application continues even if the client disconnects
+
+Disadvantages:
+->Debugging is slightly more difficult
+->Logs are stored within the cluster
+
+Conclusion:
+Client Mode is mainly used during development and testing, while Cluster Mode is preferred for production workloads because it offers better reliability and resource management.
