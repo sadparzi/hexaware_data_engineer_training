@@ -1,0 +1,45 @@
+1. What is RDD?
+
+->RDD stands for Resilient Distributed Dataset. It is the basic data structure used in Apache
+Spark to store and process data. An RDD divides data into multiple partitions and distributes
+them across different machines in a cluster. This allows Spark to process large amounts of
+data in parallel.
+->The term Resilient means that if a machine fails, Spark can recover the lost data
+automatically using lineage information.
+->Example: If we have a large file containing millions of records, Spark can split it 
+into smaller partitions and process them simultaneously on multiple worker nodes using RDDs.
+
+2. What are the Advantages of Using RDD?
+
+RDDs provide several benefits that make distributed data processing efficient.
+
+->Fault Tolerance: Lost data can be recreated automatically if a node fails.
+->Parallel Processing: Multiple tasks can run simultaneously on different machines.
+->Scalability: Can handle very large datasets distributed across many systems.
+->In-Memory Processing: Data can be cached in memory for faster execution.
+->Flexibility: Can work with structured, semi-structured, and unstructured data.
+
+Because of these advantages, RDDs are useful for large-scale data processing applications.
+
+3. What is Lazy Evaluation?
+Lazy Evaluation is a feature in Spark where transformations are not executed immediately.
+Instead, Spark records all the operations and waits until an action is called.
+For example, operations like map() and filter() are transformations.
+Spark simply remembers these operations without executing them. 
+When an action such as collect() or count() is called, Spark executes all the pending transformations together.
+
+This approach helps Spark optimize the execution plan and improve performance by avoiding unnecessary computations.
+
+Example:(python code)
+rdd = sc.parallelize([1, 2, 3, 4, 5])
+
+result = rdd.map(lambda x: x * 2)
+result = result.filter(lambda x: x > 5)
+
+print(result.collect())
+
+In this example, Spark does not perform the map() and filter() operations immediately.
+Execution starts only when collect() is called.
+
+Benefit of Lazy Evaluation: It reduces execution time and improves resource utilization by 
+optimizing the sequence of operations before running them.
