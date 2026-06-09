@@ -1,0 +1,6 @@
+DEPOSIT: 14
+TRANSFER: 11
+WITHDRAW: 8
+BALANCE_CHECK: 7
+LOAN_PAYMENT: 4
+... (wait, let me recalculate from the actual dataset)
