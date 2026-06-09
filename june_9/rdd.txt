@@ -1,0 +1,8 @@
+rdd difference between transformation and actions 
+
+transformation -> differ the execution (lazy execution)
+map() filter() distinct() union() sortby()
+
+
+action-> is where the spark runs 
+collect() count() take() first() reduce()
