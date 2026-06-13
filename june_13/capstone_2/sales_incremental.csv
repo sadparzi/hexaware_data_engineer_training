@@ -1,0 +1,4 @@
+sale_id,store_id,product_id,sale_date,quantity_sold,sale_amount,payment_mode
+SA1016,S101,P101,2026-03-01,1,65000,UPI
+SA1017,S102,P102,2026-03-02,2,50000,Card
+SA1018,S103,P106,2026-03-03,3,13500,Cash
