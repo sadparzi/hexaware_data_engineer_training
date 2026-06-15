@@ -1,0 +1,85 @@
+1. What is Azure Databricks?
+
+Azure Databricks is a cloud-based analytics platform built on Apache Spark and integrated with Microsoft Azure. It is designed for big data processing, data engineering, machine learning, and analytics.
+
+It provides a collaborative environment where data engineers, data scientists, and analysts can work together using notebooks written in Python, SQL, Scala, or R.
+
+Key Features:
+->Fast data processing using Apache Spark
+->Interactive notebooks
+->Machine learning support
+->Integration with Azure services
+->Collaborative workspace
+
+
+2. What are the Advantages of using Azure Databricks?
+Advantages:
+->High Performance
+->Uses Apache Spark for distributed processing of large datasets.
+->Scalability
+->Resources can be scaled up or down automatically based on workload.
+->Collaboration
+->Teams can collaborate using shared notebooks and workspaces.
+->Easy Integration
+->Integrates seamlessly with Azure Data Lake, Azure Synapse, Power BI, and Azure Storage.
+->Support for Multiple Languages
+->Supports Python, SQL, Scala, R, and Java.
+->Machine Learning Capabilities
+->Provides MLflow and machine learning libraries for model development.
+->Security
+->Offers role-based access control, encryption, and compliance features.
+->Cost Efficient
+->Pay only for the resources used.
+
+
+3. What is a Workspace?
+
+A Workspace in Azure Databricks is a collaborative environment where users create, manage, and organize notebooks, libraries, dashboards, and other resources.
+
+It acts as a central place for teams to work on data engineering and machine learning projects.
+
+Components of a Workspace:
+->Notebooks
+->Clusters
+->Libraries
+->Dashboards
+->Jobs and workflows
+Benefits:
+->Team collaboration
+->Resource management
+->Easy sharing of notebooks and results
+
+
+4. What is EDA – Exploratory Data Analysis?
+
+Exploratory Data Analysis (EDA) is the process of analyzing and understanding data before applying machine learning or statistical models.
+
+The main goal of EDA is to discover patterns, detect anomalies, identify relationships, and summarize the characteristics of a dataset.
+
+Steps in EDA:
+1.Data Collection
+2.Data Cleaning
+3.Handling Missing Values
+4.Data Transformation
+5.Data Visualization
+6.Statistical Analysis
+Common EDA Techniques:
+->Summary statistics (mean, median, mode)
+->Histograms
+->Box plots
+->Scatter plots
+->Correlation analysis
+Importance of EDA:
+->Improves data quality
+->Helps understand data distribution
+->Detects outliers and errors
+->Assists in feature selection
+->Leads to better model performance
+
+Example: Before predicting house prices, analysts perform EDA to study relationships between price,
+area, number of rooms, and location.
+
+Conclusion: Azure Databricks is a powerful big data analytics platform on Azure.
+Its collaborative workspace and Spark-based processing make it ideal for large-scale analytics, 
+while EDA helps understand and prepare data for analysis and machine learning.
+
