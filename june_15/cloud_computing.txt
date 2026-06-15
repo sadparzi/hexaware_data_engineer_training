@@ -1,0 +1,79 @@
+1. What is Cloud Computing?
+
+Cloud computing is the delivery of computing services such as servers, storage, databases, networking, software, and analytics over the Internet (“the cloud”). Instead of owning and maintaining physical hardware, users can access these resources on demand and pay only for what they use.
+
+Features of Cloud Computing:
+
+->On-demand self-service
+->Broad network access
+->Resource pooling
+->Rapid elasticity (scalability)
+->Measured service (pay-as-you-go)
+
+Examples: Microsoft Azure, AWS, Google Cloud Platform.
+
+
+2. What are the Advantages of Microsoft Azure?
+
+Microsoft Azure is a cloud computing platform provided by Microsoft that offers a wide range of cloud services.
+
+Advantages:
+1.Scalability: Resources can be increased or decreased based on demand.
+2.Cost Effective: Pay only for the resources used.
+3.High Availability: Ensures minimal downtime through global data centers.
+4.Security: Provides advanced security features and compliance certifications.
+5.Disaster Recovery: Backup and recovery services protect data.
+6.Integration with Microsoft Products: Works seamlessly with Windows Server, Active Directory, and Office 365.
+7.Global Reach: Data centers are available across many regions worldwide.
+8.Supports Multiple Languages and Frameworks: Supports .NET, Java, Python, Node.js, etc.
+
+
+3. What is Hosting in Azure?
+
+Hosting in Azure refers to deploying and running applications, websites, databases, or services on Microsoft Azure's cloud infrastructure instead of local servers.
+
+Azure hosting enables organizations to:
+
+->Deploy web applications
+->Host virtual machines
+->Store and manage databases
+->Run enterprise applications
+->Benefits of Azure Hosting:
+->Easy deployment
+->Automatic scaling
+->High availability
+->Better security
+->Reduced infrastructure cost
+
+Example: A company can host its website on Azure App Service so users worldwide can access it through the Internet.
+
+4. What is IaaS, PaaS and SaaS?
+a) IaaS (Infrastructure as a Service)
+
+IaaS provides virtualized computing resources such as servers, storage, and networking over the Internet.
+
+User manages: Operating system, applications, and data.
+Provider manages: Hardware and virtualization.
+
+Examples: Azure Virtual Machines, Amazon EC2.
+
+b) PaaS (Platform as a Service)
+
+PaaS provides a platform for developers to build, test, and deploy applications without managing infrastructure.
+
+User manages: Applications and data.
+Provider manages: Runtime, OS, servers, and networking.
+
+Examples: Azure App Service, Google App Engine.
+
+c) SaaS (Software as a Service)
+
+SaaS delivers software applications over the Internet on a subscription basis.
+
+User accesses: Software through a web browser.
+Provider manages: Everything including infrastructure and software updates.
+
+Conclusion: Cloud computing provides flexible and cost-effective IT services. 
+Microsoft Azure offers various cloud solutions, and service models like IaaS, PaaS,
+and SaaS help organizations choose the appropriate level of control and management.
+
