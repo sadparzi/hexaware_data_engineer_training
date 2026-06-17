@@ -1,0 +1,127 @@
+1. What is Delta Lake?
+
+Delta Lake is a storage layer built on top of a Data Lake that adds reliability and advanced features such as:
+
+ACID Transactions
+Schema Enforcement
+Time Travel
+Version Control
+Faster Queries
+
+In simple words:
+
+Delta Lake = Data Lake + Database Features
+
+Database  →  Data Warehouse  →  Data Lake  →  Delta Lake
+Small Data     Analytics        Big Data      Big Data + Reliability
+
+
+2. Database
+
+A database stores structured data in tables.
+
+Examples:
+
+MySQL
+PostgreSQL
+Oracle
+
+
+Customers Table
+
++----+--------+------+
+| ID | Name   | City |
++----+--------+------+
+| 1  | Rahul  | Hyd  |
+| 2  | Priya  | Blr  |
++----+--------+------+
+
+
+Characteristics
+
+✔ Structured data only
+✔ Supports SQL
+✔ ACID Transactions
+✔ Good for applications
+
+Limitations
+
+✘ Cannot handle huge big data efficiently
+
+
+3. Data Warehouse
+
+A Data Warehouse collects data from many databases for analysis and reporting.
+
+Examples:
+
+Snowflake
+Amazon Redshift
+BigQuery
+
+MySQL DB
+    \
+Oracle DB -----> Data Warehouse -----> Reports
+    /
+CRM System
+
+Characteristics
+
+✔ Historical data storage
+✔ Analytics and BI
+✔ Fast SQL queries
+
+Limitations
+
+✘ Expensive
+✘ Mainly supports structured data
+
+
+4. Data Lake
+
+A Data Lake stores all types of data.
+
+Structured
+Semi-structured
+Unstructured
+
+Examples:
+
+Amazon S3
+Azure Data Lake Storage (ADLS)
+Diagram
+
+             Data Lake
+          ----------------
+         /                \
+     CSV Files         JSON Files
+         \                /
+        Images        Log Files
+
+
+Advantages
+
+✔ Cheap storage
+✔ Massive scalability
+✔ Supports all data formats
+
+Problems
+
+✘ Duplicate data
+✘ Corrupt files
+✘ No transactions
+✘ Difficult data governance
+
+5. Delta Lake
+
+Delta Lake solves Data Lake problems.
+
+             Delta Lake
+          -----------------
+          Data Files
+               +
+          Transaction Log
+            (_delta_log)
+
+The _delta_log keeps track of every change made to the data.
+
