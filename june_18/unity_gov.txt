@@ -1,0 +1,188 @@
+1. What is Data Governance?
+
+Data Governance is the process of controlling:
+
+Who can access data
+What data they can see
+What actions they can perform
+Data quality and security
+Compliance and auditing
+Example
+
+In a company:
+HR Data
+├── Salary
+├── Employee Details
+
+Sales Data
+├── Revenue
+├── Customer Details
+
+Not everyone should access everything.
+
+HR Team     → Salary + Employee Data
+Sales Team  → Sales Data
+Intern      → Limited Access
+
+Data Governance ensures the correct people access the correct data.
+
+Problem Before Unity Catalog
+In traditional Databricks:
+Workspace A
+ ├── Tables
+ ├── Permissions
+
+Workspace B
+ ├── Tables
+ ├── Permissions
+
+Each workspace managed security separately.
+
+Problems:
+
+Duplicate permissions
+Difficult management
+No centralized governance
+
+What is Unity Catalog?
+
+Unity Catalog is Databricks' centralized governance layer.
+
+It provides:
+
+Centralized access control
+Data lineage
+Auditing
+Fine-grained permissions
+Governance across multiple workspaces
+
+                 Unity Catalog
+                        |
+        --------------------------------
+        |              |              |
+   Workspace A    Workspace B    Workspace C
+        |              |              |
+     Tables         Tables         Tables
+
+Instead of managing security in every workspace:
+One Governance Layer controls everything.
+
+Benefits of Unity Catalog
+Centralized Security
+One Place
+     ↓
+Manage All Permissions
+Data Lineage
+
+Track where data comes from.
+
+What is a Metastore?
+
+A Metastore stores metadata.
+
+Metadata means:
+
+Table Names
+Column Names
+Locations
+Permissions
+Schemas
+
+NOT actual data.
+
+Databricks Structure
+
+Metastore
+    ↓
+Catalog
+    ↓
+Schema
+    ↓
+Table
+
+
+3. Three-Level Namespace
+
+Unity Catalog follows:
+
+catalog.schema.table
+
+Diagram
+Metastore
+    |
+    +-- sales_catalog
+            |
+            +-- bronze
+            |      |
+            |      +-- customers
+            |
+            +-- silver
+            |      |
+            |      +-- customers_clean
+            |
+            +-- gold
+                   |
+                   +-- customer_report
+
+
+Level 1: Catalog
+
+Highest logical container.
+
+Examples:
+
+sales_catalog
+finance_catalog
+hr_catalog
+
+Create:
+SQL
+CREATE CATALOG sales_catalog;
+
+Level 2: Schema
+
+Similar to a database.
+
+Examples:
+
+bronze
+silver
+gold
+
+Create:
+SQL
+CREATE SCHEMA sales_catalog.bronze;
+
+Level 3: Table
+
+Actual data.
+
+Example:
+SQL
+CREATE TABLE sales_catalog.bronze.customers
+(
+    id INT,
+    name STRING
+);
+
+
+Complete Hierarchy
+Metastore
+│
+├── sales_catalog
+│      │
+│      ├── bronze
+│      │      ├── customers
+│      │      └── orders
+│      │
+│      ├── silver
+│      │      └── customers_clean
+│      │
+│      └── gold
+│             └── sales_dashboard
+│
+└── finance_catalog
+       │
+       └── reports
+              └── expenses
+
