@@ -1,0 +1,41 @@
+employee_id,employee_name,department,work_date,clock_in,clock_out,tasks_completed,tasks_assigned,status,work_hours,break_time_hrs,late_login,productivity_score
+1,Rahul Sharma,Engineering,2026-06-01,1900-01-01 09:05:00,1900-01-01 18:10:00,5,6,Present,9.08,0.08,False,0.55
+2,Priya Reddy,Engineering,2026-06-01,1900-01-01 08:55:00,1900-01-01 18:00:00,8,8,Present,9.08,0.08,False,0.88
+3,Amit Kumar,Sales,2026-06-01,1900-01-01 09:30:00,1900-01-01 17:45:00,3,5,Present,8.25,0.0,True,0.36
+4,Sneha Patel,HR,2026-06-01,1900-01-01 09:00:00,1900-01-01 18:00:00,4,4,Present,9.0,0.0,False,0.44
+5,Farhan Ali,Sales,2026-06-01,,,0,3,Absent,,,False,0.0
+6,Neha Singh,Marketing,2026-06-01,1900-01-01 09:15:00,1900-01-01 17:30:00,6,7,Present,8.25,0.0,False,0.73
+7,Arjun Verma,Engineering,2026-06-01,1900-01-01 09:50:00,1900-01-01 18:20:00,5,5,Present,8.5,0.0,True,0.59
+8,Meera Nair,Marketing,2026-06-01,1900-01-01 09:00:00,1900-01-01 17:00:00,4,6,Present,8.0,0.0,False,0.5
+1,Rahul Sharma,Engineering,2026-06-02,1900-01-01 09:00:00,1900-01-01 18:00:00,6,6,Present,9.0,0.0,False,0.67
+2,Priya Reddy,Engineering,2026-06-02,1900-01-01 09:10:00,1900-01-01 18:05:00,7,8,Present,8.92,0.0,False,0.78
+3,Amit Kumar,Sales,2026-06-02,,,0,4,Absent,,,False,0.0
+4,Sneha Patel,HR,2026-06-02,1900-01-01 08:50:00,1900-01-01 17:55:00,5,5,Present,9.08,0.08,False,0.55
+5,Farhan Ali,Sales,2026-06-02,1900-01-01 10:00:00,1900-01-01 18:30:00,2,4,Present,8.5,0.0,True,0.24
+6,Neha Singh,Marketing,2026-06-02,1900-01-01 09:05:00,1900-01-01 17:40:00,5,6,Present,8.58,0.0,False,0.58
+7,Arjun Verma,Engineering,2026-06-02,1900-01-01 09:00:00,1900-01-01 18:00:00,6,6,Present,9.0,0.0,False,0.67
+8,Meera Nair,Marketing,2026-06-02,1900-01-01 09:20:00,1900-01-01 17:50:00,3,5,Present,8.5,0.0,True,0.35
+1,Rahul Sharma,Engineering,2026-06-03,1900-01-01 10:15:00,1900-01-01 18:00:00,4,6,Present,7.75,0.0,True,0.52
+2,Priya Reddy,Engineering,2026-06-03,1900-01-01 08:50:00,1900-01-01 17:55:00,8,8,Present,9.08,0.08,False,0.88
+3,Amit Kumar,Sales,2026-06-03,1900-01-01 09:45:00,1900-01-01 17:30:00,0,5,Present,7.75,0.0,True,0.0
+4,Sneha Patel,HR,2026-06-03,1900-01-01 09:00:00,,3,4,Present,,,False,0.0
+5,Farhan Ali,Sales,2026-06-03,,,0,3,Absent,,,False,0.0
+6,Neha Singh,Marketing,2026-06-03,1900-01-01 10:30:00,1900-01-01 18:00:00,4,7,Present,7.5,0.0,True,0.53
+7,Arjun Verma,Engineering,2026-06-03,1900-01-01 09:00:00,1900-01-01 18:10:00,6,6,Present,9.17,0.17,False,0.65
+8,Meera Nair,Marketing,2026-06-03,1900-01-01 09:10:00,1900-01-01 17:45:00,5,6,Present,8.58,0.0,False,0.58
+1,Rahul Sharma,Engineering,2026-06-04,1900-01-01 09:00:00,1900-01-01 18:00:00,6,6,Present,9.0,0.0,False,0.67
+2,Priya Reddy,Engineering,2026-06-04,1900-01-01 09:00:00,1900-01-01 18:00:00,8,8,Present,9.0,0.0,False,0.89
+3,Amit Kumar,Sales,2026-06-04,1900-01-01 10:20:00,1900-01-01 17:30:00,2,5,Present,7.17,0.0,True,0.28
+4,Sneha Patel,HR,2026-06-04,1900-01-01 08:55:00,1900-01-01 17:50:00,4,4,Present,8.92,0.0,False,0.45
+5,Farhan Ali,Sales,2026-06-04,1900-01-01 09:30:00,1900-01-01 18:00:00,3,4,Present,8.5,0.0,True,0.35
+6,Neha Singh,Marketing,2026-06-04,1900-01-01 09:00:00,1900-01-01 17:30:00,6,7,Present,8.5,0.0,False,0.71
+7,Arjun Verma,Engineering,2026-06-04,,,0,5,Absent,,,False,0.0
+8,Meera Nair,Marketing,2026-06-04,1900-01-01 09:15:00,1900-01-01 17:40:00,4,6,Present,8.42,0.0,False,0.48
+1,Rahul Sharma,Engineering,2026-06-05,1900-01-01 09:10:00,1900-01-01 18:05:00,5,6,Present,8.92,0.0,False,0.56
+2,Priya Reddy,Engineering,2026-06-05,1900-01-01 08:45:00,1900-01-01 17:50:00,7,8,Present,9.08,0.08,False,0.77
+3,Amit Kumar,Sales,2026-06-05,1900-01-01 10:00:00,1900-01-01 17:30:00,3,5,Present,7.5,0.0,True,0.4
+4,Sneha Patel,HR,2026-06-05,1900-01-01 09:00:00,1900-01-01 18:00:00,4,4,Present,9.0,0.0,False,0.44
+5,Farhan Ali,Sales,2026-06-05,,,0,3,Absent,,,False,0.0
+6,Neha Singh,Marketing,2026-06-05,1900-01-01 09:00:00,1900-01-01 17:30:00,5,7,Present,8.5,0.0,False,0.59
+7,Arjun Verma,Engineering,2026-06-05,1900-01-01 09:05:00,1900-01-01 18:00:00,6,6,Present,8.92,0.0,False,0.67
+8,Meera Nair,Marketing,2026-06-05,1900-01-01 09:00:00,1900-01-01 17:30:00,4,6,Present,8.5,0.0,False,0.47

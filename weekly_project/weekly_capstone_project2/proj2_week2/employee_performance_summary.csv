@@ -1,0 +1,9 @@
+employee_id,employee_name,department,avg_work_hours,avg_productivity_score,total_tasks_completed,days_present,days_absent,late_logins
+1,Rahul Sharma,Engineering,8.75,0.59,26,5,0,1
+2,Priya Reddy,Engineering,9.03,0.84,38,5,0,0
+3,Amit Kumar,Sales,7.67,0.21,8,4,1,4
+4,Sneha Patel,HR,9.0,0.38,20,5,0,0
+5,Farhan Ali,Sales,8.5,0.12,5,2,3,2
+6,Neha Singh,Marketing,8.27,0.63,26,5,0,1
+7,Arjun Verma,Engineering,8.9,0.52,23,4,1,1
+8,Meera Nair,Marketing,8.4,0.48,20,5,0,1
