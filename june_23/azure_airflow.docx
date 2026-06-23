@@ -1,0 +1,89 @@
+What is Apache Airflow?
+
+Apache Airflow is an open-source workflow orchestration tool used to schedule, automate, monitor, and manage data pipelines.
+
+In simple words:
+
+Airflow helps automate a sequence of tasks that need to run in a specific order.
+
+Without Airflow
+
+Suppose every day you need to:
+
+1. Read data from a CSV/API/Database
+2. Clean the data
+3. Load it into a Data Warehouse
+4. Generate reports
+5. Send an email
+
+Someone would have to run these manually.
+
+With Airflow
+
+Airflow automates the entire process.
+         Start
+           |
+           v
+    Read Data
+           |
+           v
+    Clean Data
+           |
+           v
+    Load Data
+           |
+           v
+   Generate Report
+           |
+           v
+     Send Email
+           |
+           v
+          End
+
+This complete flow is called a Data Pipeline.
+
+
+Core Components of Airflow
+1. DAG (Directed Acyclic Graph)
+
+A DAG represents the workflow.
+
+Example
+      Read Data
+           |
+           v
+      Clean Data
+           |
+           v
+      Load Data
+           |
+           v
+      Send Email
+Directed → Tasks have a direction.
+Acyclic → No loops allowed.
+Graph → Collection of connected tasks.
+
+Think of a DAG as a blueprint of your pipeline.
+
+2. Tasks
+
+Each step in the workflow is called a task.
+
+Task 1 → Read CSV
+Task 2 → Clean Data
+Task 3 → Load Data
+Task 4 → Send Email
+
+3. Scheduler
+
+The Scheduler decides when to run the DAG.
+
+Example:
+
+Every Day at 8 AM
+Scheduler
+     |
+     v
+ Executes DAG
+
