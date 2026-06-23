@@ -1,0 +1,492 @@
+docker run -d \
+-p 8080:8080 \
+--name airflow \
+apache/airflow standalone
+
+
+docker ps
+
+docker exec -it airflow bash
+
+cat > exercise1_file_dag.py
+
+from airflow.sdk import DAG
+from airflow.providers.standard.operators.python import PythonOperator
+from datetime import datetime
+
+
+def create_file():
+    with open("/tmp/message.txt", "w") as file:
+        file.write(
+"""Welcome to Apache Airflow
+Learning DAGs
+Learning Task Dependencies"""
+        )
+
+    print("File created")
+
+
+def read_file():
+    with open("/tmp/message.txt", "r") as file:
+        print(file.read())
+
+
+with DAG(
+    dag_id="exercise1_file_dag",
+    start_date=datetime(2025, 1, 1),
+    schedule="@daily",
+    catchup=False
+) as dag:
+
+    create_file_task = PythonOperator(
+        task_id="create_file",
+        python_callable=create_file
+    )
+
+    read_file_task = PythonOperator(
+        task_id="read_file",
+        python_callable=read_file
+    )
+
+    create_file_task >> read_file_task
+
+ctrl+d
+
+ls
+
+airflow dags list
+
+airflow dags reserialize
+
+airflow@7dd6b9eaf95f:/opt/airflow/dags$ cat /tmp/message.txt
+Welcome to Apache Airflow
+Learning DAGs
+
+cat > exercise2_salary_report.py
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from datetime import datetime
+
+
+def create_salary_file():
+    with open("/tmp/employees.txt", "w") as file:
+        file.write(
+"""Rahul,45000
+Priya,52000
+Amit,61000
+Sneha,48000"""
+        )
+
+    print("employees.txt created")
+
+
+def calculate_total_salary():
+    total = 0
+
+    with open("/tmp/employees.txt", "r") as file:
+        for line in file:
+            total += int(line.strip().split(",")[1])
+
+    with open("/tmp/total_salary.txt", "w") as file:
+        file.write(str(total))
+
+    print(f"Total Salary = {total}")
+
+
+def generate_report():
+    with open("/tmp/total_salary.txt", "r") as file:
+        total = file.read()
+
+    with open("/tmp/report.txt", "w") as file:
+        file.write(
+f"""Salary Report
+Employees = 4
+Total Salary = {total}"""
+        )
+
+    print("Report Generated")
+
+
+with DAG(
+    dag_id="exercise2_salary_report",
+    start_date=datetime(2025, 1, 1),
+    schedule="@daily",
+    catchup=False
+) as dag:
+
+    create_salary_file_task = PythonOperator(
+        task_id="create_salary_file",
+        python_callable=create_salary_file
+    )
+
+    calculate_total_salary_task = PythonOperator(
+        task_id="calculate_total_salary",
+        python_callable=calculate_total_salary
+    )
+
+    generate_report_task = PythonOperator(
+        task_id="generate_report",
+        python_callable=generate_report
+    )
+
+    create_salary_file_task >> calculate_total_salary_task >> generate_report_task
+ctrl + D
+
+airflow dags reserialize
+
+airflow@7dd6b9eaf95f:/opt/airflow/dags$ cat /tmp/report.txt
+Salary Report
+Employees = 4
+
+cat > exercise3_student_marks.py
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from datetime import datetime
+
+
+def create_marks_file():
+    with open("/tmp/marks.txt", "w") as file:
+        file.write(
+"""Math,80
+Science,75
+English,90
+Python,95"""
+        )
+
+    print("marks.txt created")
+
+
+def calculate_average():
+    total = 0
+    count = 0
+
+    with open("/tmp/marks.txt", "r") as file:
+        for line in file:
+            mark = int(line.strip().split(",")[1])
+            total += mark
+            count += 1
+
+    average = total / count
+
+    with open("/tmp/average.txt", "w") as file:
+        file.write(str(average))
+
+    print(f"Average = {average}")
+
+
+def generate_result():
+    with open("/tmp/average.txt", "r") as file:
+        average = float(file.read())
+
+    result = "PASS" if average >= 50 else "FAIL"
+
+    with open("/tmp/result.txt", "w") as file:
+        file.write(
+f"""Average Marks = {average}
+Result = {result}"""
+        )
+
+    print("Result file generated")
+
+
+with DAG(
+    dag_id="exercise3_student_marks",
+    start_date=datetime(2025, 1, 1),
+    schedule="@daily",
+    catchup=False
+) as dag:
+
+    create_marks_file_task = PythonOperator(
+        task_id="create_marks_file",
+        python_callable=create_marks_file
+    )
+
+    calculate_average_task = PythonOperator(
+        task_id="calculate_average",
+        python_callable=calculate_average
+    )
+
+    generate_result_task = PythonOperator(
+        task_id="generate_result",
+        python_callable=generate_result
+    )
+
+    create_marks_file_task >> calculate_average_task >> generate_result_task
+ctrl+d
+
+airflow dags reserialize
+airflow@7dd6b9eaf95f:/opt/airflow/dags$ cat /tmp/result.txt
+Average Marks = 85.0
+
+
+cat > exercise4_stock_alert.py
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from datetime import datetime
+
+
+def create_inventory():
+    with open("/tmp/inventory.txt", "w") as file:
+        file.write(
+"""Rice,50
+Oil,7
+Soap,35
+Sugar,10
+Tea,5"""
+        )
+
+    print("Inventory file created")
+
+
+def find_low_stock():
+    low_stock = []
+
+    with open("/tmp/inventory.txt", "r") as file:
+        for line in file:
+            product, stock = line.strip().split(",")
+            stock = int(stock)
+
+            if stock < 15:
+                low_stock.append(product)
+
+    with open("/tmp/low_stock.txt", "w") as file:
+        for item in low_stock:
+            file.write(item + "\n")
+
+    print("Low stock products identified")
+
+
+def generate_alert():
+    with open("/tmp/low_stock.txt", "r") as file:
+        alerts = file.read()
+
+    with open("/tmp/alerts.txt", "w") as file:
+        file.write(alerts)
+
+    print("Alert file generated")
+
+
+with DAG(
+    dag_id="exercise4_stock_alert",
+    start_date=datetime(2025, 1, 1),
+    schedule="@daily",
+    catchup=False
+) as dag:
+
+    create_inventory_task = PythonOperator(
+        task_id="create_inventory",
+        python_callable=create_inventory
+    )
+
+    find_low_stock_task = PythonOperator(
+        task_id="find_low_stock",
+        python_callable=find_low_stock
+    )
+
+    generate_alert_task = PythonOperator(
+        task_id="generate_alert",
+        python_callable=generate_alert
+    )
+
+    create_inventory_task >> find_low_stock_task >> generate_alert_task
+ctrl+d
+
+                                                                                                                       
+airflow@bd5a08bc8acf:/opt/airflow/dags$ cat /tmp/alerts.txt
+Oil
+Sugar
+Tea
+
+cat > exercise5_attendance_report.py
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from datetime import datetime
+
+
+def create_attendance():
+    with open("/tmp/attendance.txt", "w") as file:
+        file.write(
+"""Rahul,Present
+Priya,Present
+Amit,Absent
+Sneha,Present
+Kiran,Absent"""
+        )
+
+    print("Attendance file created")
+
+
+def count_present():
+    present = 0
+
+    with open("/tmp/attendance.txt", "r") as file:
+        for line in file:
+            if "Present" in line:
+                present += 1
+
+    with open("/tmp/present_count.txt", "w") as file:
+        file.write(str(present))
+
+    print(f"Present = {present}")
+
+
+def count_absent():
+    absent = 0
+
+    with open("/tmp/attendance.txt", "r") as file:
+        for line in file:
+            if "Absent" in line:
+                absent += 1
+
+    with open("/tmp/absent_count.txt", "w") as file:
+        file.write(str(absent))
+
+    print(f"Absent = {absent}")
+
+
+def generate_summary():
+    with open("/tmp/present_count.txt", "r") as file:
+        present = int(file.read())
+
+    with open("/tmp/absent_count.txt", "r") as file:
+        absent = int(file.read())
+
+    total = present + absent
+
+    with open("/tmp/attendance_report.txt", "w") as file:
+        file.write(
+f"""Total Students = {total}
+Present = {present}
+Absent = {absent}"""
+        )
+
+    print("Attendance report generated")
+
+
+with DAG(
+    dag_id="exercise5_attendance_report",
+    start_date=datetime(2025, 1, 1),
+    schedule="@daily",
+    catchup=False
+) as dag:
+
+    create_attendance_task = PythonOperator(
+        task_id="create_attendance",
+        python_callable=create_attendance
+    )
+
+    count_present_task = PythonOperator(
+        task_id="count_present",
+        python_callable=count_present
+    )
+
+    count_absent_task = PythonOperator(
+        task_id="count_absent",
+        python_callable=count_absent
+    )
+
+    generate_summary_task = PythonOperator(
+        task_id="generate_summary",
+        python_callable=generate_summary
+    )
+
+    create_attendance_task >> count_present_task >> count_absent_task >> generate_summary_task
+ctrl + d
+
+airflow@bd5a08bc8acf:/opt/airflow/dags$ cat /tmp/attendance_report.txt
+Total Students = 5
+Present = 3
+
+cat > exercise6_csv_processing.py
+
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from datetime import datetime
+import csv
+
+
+def create_csv():
+    with open("/tmp/sales.csv", "w") as file:
+        file.write(
+"""product,quantity,price
+Laptop,2,70000
+Mouse,5,500
+Keyboard,3,1200"""
+        )
+
+    print("sales.csv created")
+
+
+def read_csv():
+    with open("/tmp/sales.csv", "r") as file:
+        print(file.read())
+
+
+def calculate_revenue():
+    revenues = {}
+    total_revenue = 0
+
+    with open("/tmp/sales.csv", "r") as file:
+        reader = csv.DictReader(file)
+
+        for row in reader:
+            revenue = int(row["quantity"]) * int(row["price"])
+
+            revenues[row["product"]] = revenue
+            total_revenue += revenue
+
+    with open("/tmp/revenue.txt", "w") as file:
+        for product, revenue in revenues.items():
+            file.write(f"{product}={revenue}\n")
+
+        file.write(f"Total Revenue={total_revenue}")
+
+    print(f"Total Revenue = {total_revenue}")
+
+
+def create_summary():
+    with open("/tmp/revenue.txt", "r") as file:
+        content = file.read()
+
+    with open("/tmp/summary.txt", "w") as file:
+        file.write(content)
+
+    print("Summary file created")
+
+
+with DAG(
+    dag_id="exercise6_csv_processing",
+    start_date=datetime(2025, 1, 1),
+    schedule="@daily",
+    catchup=False
+) as dag:
+
+    create_csv_task = PythonOperator(
+        task_id="create_csv",
+        python_callable=create_csv
+    )
+
+    read_csv_task = PythonOperator(
+        task_id="read_csv",
+        python_callable=read_csv
+    )
+
+    calculate_revenue_task = PythonOperator(
+        task_id="calculate_revenue",
+        python_callable=calculate_revenue
+    )
+
+    create_summary_task = PythonOperator(
+        task_id="create_summary",
+        python_callable=create_summary
+    )
+
+    create_csv_task >> read_csv_task >> calculate_revenue_task >> create_summary_task
+
+ctrl + d
+
+cat /tmp/summary.txt
+Laptop=140000
+Mouse=2500
+Keyboard=3600
+Total Revenue=146100
