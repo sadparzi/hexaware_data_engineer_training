@@ -1,0 +1,723 @@
+py files and commands for airflow and dags 
+
+docker run -d \
+-p 8080:8080 \
+--name airflow \
+apache/airflow standalone
+
+docker exec -it airflow bash
+
+cd /opt/airflow/dags
+
+cat > exercise7_department_salary.py
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from datetime import datetime
+
+
+def create_department_file():
+    with open("/tmp/departments.txt", "w") as file:
+        file.write(
+"""IT,45000
+HR,35000
+Finance,50000
+IT,55000
+Finance,40000
+HR,30000"""
+        )
+
+    print("Department file created")
+
+
+def calculate_department_salary():
+    department_salary = {}
+
+    with open("/tmp/departments.txt", "r") as file:
+        for line in file:
+            department, salary = line.strip().split(",")
+            salary = int(salary)
+
+            if department in department_salary:
+                department_salary[department] += salary
+            else:
+                department_salary[department] = salary
+
+    with open("/tmp/department_totals.txt", "w") as file:
+        for department, total in department_salary.items():
+            file.write(f"{department},{total}\n")
+
+    print("Department salary calculated")
+
+
+def generate_department_report():
+    with open("/tmp/department_totals.txt", "r") as file:
+        report = file.read()
+
+    with open("/tmp/department_report.txt", "w") as file:
+        file.write(report)
+
+    print("Department report generated")
+
+
+with DAG(
+    dag_id="exercise7_department_salary",
+    start_date=datetime(2025, 1, 1),
+    schedule="@daily",
+    catchup=False
+) as dag:
+
+    create_department_file_task = PythonOperator(
+        task_id="create_department_file",
+        python_callable=create_department_file
+    )
+
+    calculate_department_salary_task = PythonOperator(
+        task_id="calculate_department_salary",
+        python_callable=calculate_department_salary
+    )
+
+    generate_department_report_task = PythonOperator(
+        task_id="generate_department_report",
+        python_callable=generate_department_report
+    )
+
+    create_department_file_task >> calculate_department_salary_task >> generate_department_report_task
+ctrl+d
+
+airflow dags reserialize
+
+airflow@14593bca1291:/opt/airflow/dags$ cat /tmp/department_report.txt
+IT,100000
+HR,65000
+Finance,90000
+
+cat > exercise8_electricity_bill.py
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from datetime import datetime
+
+
+def create_bill_file():
+    with open("/tmp/electricity.txt", "w") as file:
+        file.write(
+"""Rahul,210
+Priya,180
+Amit,300
+Sneha,150
+Kiran,260"""
+        )
+
+    print("Electricity file created")
+
+
+def calculate_total_units():
+    total_units = 0
+    customers = 0
+
+    with open("/tmp/electricity.txt", "r") as file:
+        for line in file:
+            name, units = line.strip().split(",")
+            total_units += int(units)
+            customers += 1
+
+    average_units = total_units / customers
+
+    with open("/tmp/units.txt", "w") as file:
+        file.write(f"{customers}\n")
+        file.write(f"{total_units}\n")
+        file.write(f"{average_units}")
+
+    print("Units calculated")
+
+
+def generate_bill_summary():
+    with open("/tmp/units.txt", "r") as file:
+        customers = file.readline().strip()
+        total = file.readline().strip()
+        average = file.readline().strip()
+
+    with open("/tmp/bill_summary.txt", "w") as file:
+        file.write(
+f"""Customers = {customers}
+Total Units = {total}
+Average Units = {average}"""
+        )
+
+    print("Bill summary generated")
+
+
+with DAG(
+    dag_id="exercise8_electricity_bill",
+    start_date=datetime(2025, 1, 1),
+    schedule="@daily",
+    catchup=False
+) as dag:
+
+    create_bill_file_task = PythonOperator(
+        task_id="create_bill_file",
+        python_callable=create_bill_file
+    )
+
+    calculate_total_units_task = PythonOperator(
+        task_id="calculate_total_units",
+        python_callable=calculate_total_units
+    )
+
+    generate_bill_summary_task = PythonOperator(
+        task_id="generate_bill_summary",
+        python_callable=generate_bill_summary
+    )
+
+    create_bill_file_task >> calculate_total_units_task >> generate_bill_summary_task
+ctrl+d
+
+airflow dags reserialize
+
+airflow@14593bca1291:/opt/airflow/dags$ cat /tmp/bill_summary.txt
+Customers = 5
+Total Units = 1100
+
+cat > exercise9_exam_result.py
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from datetime import datetime
+
+
+def create_result_file():
+    with open("/tmp/results.txt", "w") as file:
+        file.write(
+"""Rahul,Pass
+Priya,Fail
+Amit,Pass
+Sneha,Pass
+Kiran,Fail
+Megha,Pass"""
+        )
+
+    print("Results file created")
+
+
+def count_pass_fail():
+    passed = 0
+    failed = 0
+
+    with open("/tmp/results.txt", "r") as file:
+        for line in file:
+            name, result = line.strip().split(",")
+
+            if result == "Pass":
+                passed += 1
+            else:
+                failed += 1
+
+    with open("/tmp/pass_fail.txt", "w") as file:
+        file.write(f"{passed}\n")
+        file.write(f"{failed}")
+
+    print("Pass/Fail count calculated")
+
+
+def generate_result_summary():
+    with open("/tmp/pass_fail.txt", "r") as file:
+        passed = file.readline().strip()
+        failed = file.readline().strip()
+
+    with open("/tmp/result_summary.txt", "w") as file:
+        file.write(
+f"""Total Pass = {passed}
+Total Fail = {failed}"""
+        )
+
+    print("Result summary generated")
+
+
+with DAG(
+    dag_id="exercise9_exam_result",
+    start_date=datetime(2025, 1, 1),
+    schedule="@daily",
+    catchup=False
+) as dag:
+
+    create_result_file_task = PythonOperator(
+        task_id="create_result_file",
+        python_callable=create_result_file
+    )
+
+    count_pass_fail_task = PythonOperator(
+        task_id="count_pass_fail",
+        python_callable=count_pass_fail
+    )
+
+    generate_result_summary_task = PythonOperator(
+        task_id="generate_result_summary",
+        python_callable=generate_result_summary
+    )
+
+    create_result_file_task >> count_pass_fail_task >> generate_result_summary_task
+ctrl+d
+
+airflow dags reserialize
+
+airflow@14593bca1291:/opt/airflow/dags$ cat /tmp/result_summary.txt
+Total Pass = 4
+
+cat > exercise10_online_orders.py
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from datetime import datetime
+import csv
+
+
+def create_orders():
+    with open("/tmp/orders.csv", "w") as file:
+        file.write(
+"""product,quantity,price
+Laptop,1,70000
+Mouse,4,500
+Monitor,2,12000
+Keyboard,3,1500"""
+        )
+
+    print("Orders CSV created")
+
+
+def calculate_order_value():
+    revenues = {}
+    total_revenue = 0
+    highest_product = ""
+    highest_revenue = 0
+
+    with open("/tmp/orders.csv", "r") as file:
+        reader = csv.DictReader(file)
+
+        for row in reader:
+            revenue = int(row["quantity"]) * int(row["price"])
+
+            revenues[row["product"]] = revenue
+            total_revenue += revenue
+
+            if revenue > highest_revenue:
+                highest_revenue = revenue
+                highest_product = row["product"]
+
+    with open("/tmp/order_values.txt", "w") as file:
+        for product, revenue in revenues.items():
+            file.write(f"{product} = {revenue}\n")
+
+        file.write(f"Total Revenue = {total_revenue}\n")
+        file.write(f"Highest Selling Product = {highest_product}")
+
+
+def generate_sales_report():
+    with open("/tmp/order_values.txt", "r") as file:
+        report = file.read()
+
+    with open("/tmp/sales_report.txt", "w") as file:
+        file.write(report)
+
+    print("Sales report generated")
+
+
+with DAG(
+    dag_id="exercise10_online_orders",
+    start_date=datetime(2025, 1, 1),
+    schedule="@daily",
+    catchup=False
+) as dag:
+
+    create_orders_task = PythonOperator(
+        task_id="create_orders",
+        python_callable=create_orders
+    )
+
+    calculate_order_value_task = PythonOperator(
+        task_id="calculate_order_value",
+        python_callable=calculate_order_value
+    )
+
+    generate_sales_report_task = PythonOperator(
+        task_id="generate_sales_report",
+        python_callable=generate_sales_report
+    )
+
+    create_orders_task >> calculate_order_value_task >> generate_sales_report_task
+ctrl+d
+
+airflow dags reserialize
+
+airflow@92ce669d4a59:/opt/airflow/dags$ cat /tmp/sales_report.txt
+Laptop = 70000
+Mouse = 2000
+Monitor = 24000
+Keyboard = 4500
+Total Revenue = 100500
+
+cat > exercise11_temperature_analysis.py
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from datetime import datetime
+
+
+def create_temperature_file():
+    with open("/tmp/temperature.txt", "w") as file:
+        file.write(
+"""Monday,34
+Tuesday,36
+Wednesday,31
+Thursday,38
+Friday,35
+Saturday,33
+Sunday,32"""
+        )
+
+    print("Temperature file created")
+
+
+def find_highest_temperature():
+    highest = -1
+    total = 0
+    count = 0
+
+    with open("/tmp/temperature.txt", "r") as file:
+        for line in file:
+            day, temp = line.strip().split(",")
+            temp = int(temp)
+
+            total += temp
+            count += 1
+
+            if temp > highest:
+                highest = temp
+
+    average = total / count
+
+    with open("/tmp/weather_data.txt", "w") as file:
+        file.write(f"{highest}\n")
+        file.write(f"{average}")
+
+    print("Temperature analysis completed")
+
+
+def generate_weather_report():
+    with open("/tmp/weather_data.txt", "r") as file:
+        highest = file.readline().strip()
+        average = file.readline().strip()
+
+    with open("/tmp/weather_report.txt", "w") as file:
+        file.write(
+f"""Highest Temperature = {highest}
+Average Temperature = {average}"""
+        )
+
+    print("Weather report generated")
+
+
+with DAG(
+    dag_id="exercise11_temperature_analysis",
+    start_date=datetime(2025, 1, 1),
+    schedule="@daily",
+    catchup=False
+) as dag:
+
+    create_temperature_file_task = PythonOperator(
+        task_id="create_temperature_file",
+        python_callable=create_temperature_file
+    )
+
+    find_highest_temperature_task = PythonOperator(
+        task_id="find_highest_temperature",
+        python_callable=find_highest_temperature
+    )
+
+    generate_weather_report_task = PythonOperator(
+        task_id="generate_weather_report",
+        python_callable=generate_weather_report
+    )
+
+    create_temperature_file_task >> find_highest_temperature_task >> generate_weather_report_task
+ctrl+d
+
+airflow dags reserialize
+
+airflow@92ce669d4a59:/opt/airflow/dags$ cat /tmp/weather_report.txt
+Highest Temperature = 38
+Average Temperature = 34.142857142857146
+
+cat > exercise12_bank_transactions.py
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from datetime import datetime
+
+
+def create_transactions():
+    with open("/tmp/transactions.txt", "w") as file:
+        file.write(
+"""Deposit,10000
+Withdraw,2500
+Deposit,4000
+Withdraw,1500
+Deposit,2000"""
+        )
+
+    print("Transaction file created")
+
+
+def calculate_balance():
+    total_deposit = 0
+    total_withdrawal = 0
+
+    with open("/tmp/transactions.txt", "r") as file:
+        for line in file:
+            transaction, amount = line.strip().split(",")
+            amount = int(amount)
+
+            if transaction == "Deposit":
+                total_deposit += amount
+            else:
+                total_withdrawal += amount
+
+    balance = total_deposit - total_withdrawal
+
+    with open("/tmp/balance.txt", "w") as file:
+        file.write(f"{total_deposit}\n")
+        file.write(f"{total_withdrawal}\n")
+        file.write(f"{balance}")
+
+    print("Balance calculated")
+
+
+def generate_account_report():
+    with open("/tmp/balance.txt", "r") as file:
+        deposit = file.readline().strip()
+        withdrawal = file.readline().strip()
+        balance = file.readline().strip()
+
+    with open("/tmp/account_report.txt", "w") as file:
+        file.write(
+f"""Total Deposit = {deposit}
+Total Withdrawal = {withdrawal}
+Final Balance = {balance}"""
+        )
+
+    print("Account report generated")
+
+
+with DAG(
+    dag_id="exercise12_bank_transactions",
+    start_date=datetime(2025, 1, 1),
+    schedule="@daily",
+    catchup=False
+) as dag:
+
+    create_transactions_task = PythonOperator(
+        task_id="create_transactions",
+        python_callable=create_transactions
+    )
+
+    calculate_balance_task = PythonOperator(
+        task_id="calculate_balance",
+        python_callable=calculate_balance
+    )
+
+    generate_account_report_task = PythonOperator(
+        task_id="generate_account_report",
+        python_callable=generate_account_report
+    )
+
+    create_transactions_task >> calculate_balance_task >> generate_account_report_task
+
+ctrl+d
+
+airflow dags reserialize
+
+airflow@92ce669d4a59:/opt/airflow/dags$ cat /tmp/account_report.txt
+Total Deposit = 16000
+Total Withdrawal = 4000
+Final Balance = 12000
+
+cat > exercise13_employee_age.py
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from datetime import datetime
+
+
+def create_employee_file():
+    with open("/tmp/employees.txt", "w") as file:
+        file.write(
+"""Rahul,28
+Priya,31
+Amit,42
+Sneha,26
+Kiran,38"""
+        )
+
+    print("Employee file created")
+
+
+def calculate_average_age():
+    total_age = 0
+    count = 0
+
+    youngest_name = ""
+    youngest_age = 999
+
+    oldest_name = ""
+    oldest_age = -1
+
+    with open("/tmp/employees.txt", "r") as file:
+        for line in file:
+            name, age = line.strip().split(",")
+            age = int(age)
+
+            total_age += age
+            count += 1
+
+            if age < youngest_age:
+                youngest_age = age
+                youngest_name = name
+
+            if age > oldest_age:
+                oldest_age = age
+                oldest_name = name
+
+    average = total_age / count
+
+    with open("/tmp/age_data.txt", "w") as file:
+        file.write(f"{youngest_name},{youngest_age}\n")
+        file.write(f"{oldest_name},{oldest_age}\n")
+        file.write(f"{average}")
+
+    print("Age statistics calculated")
+
+
+def generate_age_report():
+    with open("/tmp/age_data.txt", "r") as file:
+        youngest = file.readline().strip()
+        oldest = file.readline().strip()
+        average = file.readline().strip()
+
+    with open("/tmp/age_report.txt", "w") as file:
+        file.write(
+f"""Youngest Employee = {youngest}
+Oldest Employee = {oldest}
+Average Age = {average}"""
+        )
+
+    print("Age report generated")
+
+
+with DAG(
+    dag_id="exercise13_employee_age",
+    start_date=datetime(2025, 1, 1),
+    schedule="@daily",
+    catchup=False
+) as dag:
+
+    create_employee_file_task = PythonOperator(
+        task_id="create_employee_file",
+        python_callable=create_employee_file
+    )
+
+    calculate_average_age_task = PythonOperator(
+        task_id="calculate_average_age",
+        python_callable=calculate_average_age
+    )
+
+    generate_age_report_task = PythonOperator(
+        task_id="generate_age_report",
+        python_callable=generate_age_report
+    )
+
+    create_employee_file_task >> calculate_average_age_task >> generate_age_report_task
+
+ctrl+d
+
+airflow dags reserialize
+
+airflow@17f7b141e913:/opt/airflow/dags$ cat /tmp/age_report.txt
+Youngest Employee = Sneha,26
+Oldest Employee = Amit,42
+Average Age = 33.0
+
+cat > exercise14_course_enrollment.py
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from datetime import datetime
+
+
+def create_enrollment_file():
+    with open("/tmp/enrollments.txt", "w") as file:
+        file.write(
+"""Python,Rahul
+Python,Priya
+SQL,Amit
+Python,Sneha
+Power BI,Kiran
+SQL,Megha
+Power BI,Arjun"""
+        )
+
+    print("Enrollment file created")
+
+
+def count_students():
+    course_count = {}
+
+    with open("/tmp/enrollments.txt", "r") as file:
+        for line in file:
+            course, student = line.strip().split(",")
+
+            if course in course_count:
+                course_count[course] += 1
+            else:
+                course_count[course] = 1
+
+    with open("/tmp/course_count.txt", "w") as file:
+        for course, count in course_count.items():
+            file.write(f"{course},{count}\n")
+
+    print("Student count calculated")
+
+
+def generate_course_report():
+    with open("/tmp/course_count.txt", "r") as file:
+        report = file.read()
+
+    with open("/tmp/course_report.txt", "w") as file:
+        file.write(report)
+
+    print("Course report generated")
+
+
+with DAG(
+    dag_id="exercise14_course_enrollment",
+    start_date=datetime(2025, 1, 1),
+    schedule="@daily",
+    catchup=False
+) as dag:
+
+    create_enrollment_file_task = PythonOperator(
+        task_id="create_enrollment_file",
+        python_callable=create_enrollment_file
+    )
+
+    count_students_task = PythonOperator(
+        task_id="count_students",
+        python_callable=count_students
+    )
+
+    generate_course_report_task = PythonOperator(
+        task_id="generate_course_report",
+        python_callable=generate_course_report
+    )
+
+    create_enrollment_file_task >> count_students_task >> generate_course_report_task
+
+ctrl+d
+
+airflow dags reserialize
+
+airflow@17f7b141e913:/opt/airflow/dags$ cat /tmp/course_report.txt
+Python,3
+SQL,2
+Power BI,2
