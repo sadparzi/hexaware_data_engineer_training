@@ -1,0 +1,75 @@
+1. What is DevOps?
+
+Answer:
+
+DevOps is a software development approach that brings the Development (Dev) and Operations (Ops) teams together. Its goal is to automate software development, testing, deployment, and monitoring so applications can be released faster and with fewer errors.
+
+Simple definition:
+
+DevOps is a culture and set of practices that help developers and operations teams work together to deliver software quickly and reliably.
+
+
+2. Advantages of DevOps
+Faster software delivery
+Better collaboration between development and operations teams
+Continuous Integration and Continuous Deployment (CI/CD)
+Reduced manual work through automation
+Faster bug detection and fixing
+Improved software quality
+Higher application reliability
+Easier monitoring and maintenance
+Quicker recovery from failures
+Increased customer satisfaction
+
+3. What is Agile Methodology and What is Scrum?
+Agile Methodology
+
+Agile is a software development methodology where work is completed in small, manageable parts called iterations or sprints. Customer feedback is collected regularly, and changes can be made throughout the project.
+
+Simple definition:
+
+Agile is a flexible approach to software development where software is developed, tested, and delivered in small increments.
+
+Scrum
+
+Scrum is one of the most popular Agile frameworks. It organizes work into fixed-length sprints (usually 2–4 weeks), and team members collaborate through regular meetings to deliver working software.
+
+Key Scrum Roles:
+
+Product Owner
+Scrum Master
+Development Team
+
+4. What are the Important Meetings in Agile?
+Sprint Planning
+Conducted at the beginning of each sprint.
+The team decides which tasks will be completed during the sprint.
+Daily Stand-up (Daily Scrum)
+A short 15-minute meeting held every day.
+Each team member answers:
+What did I do yesterday?
+What will I do today?
+Is there any blocker?
+Sprint Review
+Held at the end of the sprint.
+The completed work is demonstrated to stakeholders and feedback is collected.
+Sprint Retrospective
+Conducted after the sprint review.
+The team discusses:
+What went well?
+What didn't go well?
+What can be improved in the next sprint?
+Backlog Refinement (Backlog Grooming)
+Product backlog items are reviewed, clarified, and prioritized for future sprints.
+
+5. What are the Advantages of Agile?
+Faster delivery of software
+Easy to adapt to changing requirements
+Continuous customer feedback
+Better communication among team members
+Improved software quality through regular testing
+Faster identification and fixing of bugs
+Higher customer satisfaction
+Better project visibility
+Reduced project risk
+Continuous improvement through retrospectives

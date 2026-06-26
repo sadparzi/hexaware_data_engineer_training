@@ -1,0 +1,86 @@
+Epic
+│
+└── Customer Service
+      │
+      ├── Feature
+      │      │
+      │      ├── Your Orders
+      │      │      │
+      │      │      ├── User Story
+      │      │      │      │
+      │      │      │      ├── Track Packages
+      │      │      │      └── Edit/Cancel Orders
+      │      │
+      │      ├── Returns and Refunds
+      │      │      │
+      │      │      ├── Return Items
+      │      │      └── Print Labels
+      │      │
+      │      ├── Manage Address
+      │      └── Manage Prime
+      │
+      └── Tasks
+             ├── Build UI
+             ├── Develop API
+             ├── Database
+             ├── Testing
+             └── Deployment
+
+
+Amazon order Tracking — Hub, Out for Delivery — Journey of the product
+
+Epic — Customer Service
+
+Features
+Your Orders
+Returns and Refunds
+Manage Address
+Manage Prime
+
+User Story
+Your Orders
+Track Packages
+Edit or Cancel Orders
+
+Returns and Refunds
+Return Items
+Print Labels
+
+Tasks
+Track Packages — User Story
+Build UI — 7 hrs
+
+
+
+Epic -- Amazon Payment Screen
+
+Features
+    Internet Banking
+    Credit Card Payments
+    UPI Payments
+    COD
+
+User Stories
+
+    Internet Banking
+        ICICI, SBI, HDFC, .....
+
+    Credit Card
+        ICICI, SBI, HDFC, .....
+
+    UPI
+        Google Pay, Phone Pe, Paytm, Amazon Pay
+
+    COD
+        Del agent -- Payment Collection Unit -- Payment System
+
+Tasks
+
+    ICICI Bank
+
+        UI -- Login Screen
+
+        Authentication and Authorization
+
+        Collect the payment -- Store the info -- DB Call
+

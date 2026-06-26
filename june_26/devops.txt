@@ -1,0 +1,32 @@
+SDLC
+
+Requirement Document — Wireframe — Product Owner / Arch
+
+Technical Document — Tech Lead — Reviewed by the Arch
+Classes, Interfaces, Components, Cloud, Technology .......
+
+Coding Phase — Developers
+
+QA — Testing Team — Raise Bugs — Get it Fixed
+
+Dev Env
+Testing Env
+UAT
+Int Env
+PPE Env
+Production Environment
+
+Regression Testing, Black box testing, API Testing, Automation Testing, Integration Testing, Unit Testing..
+Load Testing, Stress Testing
+
+Maintenance
+
+Full Stack Developer — UI, API, database, cloud computing
+
+Good In Communication Skills — PO
+
+Unit Testing - Integration testing
+
+Working with CICD Pipelines
+
+Managing the Azure Cloud
