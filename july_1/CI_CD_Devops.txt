@@ -1,0 +1,100 @@
+Team 4 members -- Git Branches -- Integrate -- Friday -- Merge Conflicts
+
+Build the Project -- Package -- Deploy in the server -- Sanity Testing
+
+CI CD Pipelines -- Cont Integration and Cont Deployment
+
+Whenever i check in the code -- 5 mins -- Dev Server
+
+Cont Integration
+------------------------
+Whenever I checkin the code
+-- Immediately Build will start
+-- Testing is done
+-- Package is Created
+
+Cont Deployment
+------------------------
+Take the Package of CI and Deploy to Azure Server
+
+
+1. What is CI/CD?
+
+CI/CD stands for Continuous Integration and Continuous Deployment (or Continuous Delivery). It is a DevOps practice that automates the process of building, testing, and deploying software.
+
+Instead of manually building and deploying the application every time a developer makes a change, CI/CD pipelines perform these tasks automatically.
+
+Continuous Integration (CI)
+
+Continuous Integration is the practice of automatically integrating code changes into a shared repository.
+
+Whenever a developer pushes code to Git:
+
+The code is downloaded.
+The application is built.
+Unit tests are executed.
+Code quality checks are performed.
+A deployable package (artifact) is created.
+
+If any step fails, the pipeline stops and the developers are notified.
+
+CI Flow
+Developer
+     │
+     ▼
+Push Code to Git
+     │
+     ▼
+Azure DevOps Pipeline
+     │
+     ├── Restore Packages
+     ├── Build Project
+     ├── Run Unit Tests
+     ├── Code Quality Checks
+     └── Create Build Artifact
+
+Continuous Deployment (CD)
+
+Continuous Deployment automatically deploys the successfully built application to an environment.
+
+Typical deployment environments:
+Development
+      │
+      ▼
+Testing
+      │
+      ▼
+UAT
+      │
+      ▼
+Pre-Production
+      │
+      ▼
+Production
+
+2. Advantages of CI/CD Pipelines
+Faster software delivery
+Automatic build and testing
+Early detection of bugs
+Reduced manual effort
+Consistent deployment process
+Faster feedback to developers
+Improved code quality
+Reduced deployment errors
+Easy rollback if deployment fails
+Faster release cycles
+Better collaboration between development and operations teams
+
+3. Azure DevOps Notes
+What is Azure DevOps?
+
+Azure DevOps is Microsoft's cloud platform for managing the complete software development lifecycle.
+
+It provides tools for:
+
+Planning work
+Managing source code
+Building applications
+Testing
+Deploying
+Monitoring
